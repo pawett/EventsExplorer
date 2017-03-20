@@ -20,11 +20,17 @@ public class Arguments {
 		return new GraphQLArgument("id",GraphQLString);
 	}
 	
-	//TODO:Move to a helper class
-	public static <T extends BaseEntity> String GetIdFromEnvironment(DataFetchingEnvironment environment)
+	public static GraphQLArgument From()
 	{
-		return ((T)environment.getSource()).id;
+		return new GraphQLArgument("from",GraphQLString);
 	}
+	
+	public static GraphQLArgument To()
+	{
+		return new GraphQLArgument("to",GraphQLString);
+	}
+	
+	
 	
 	
 }

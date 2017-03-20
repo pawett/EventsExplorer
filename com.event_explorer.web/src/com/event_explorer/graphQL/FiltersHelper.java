@@ -17,6 +17,8 @@ public class FiltersHelper {
 	public static <T extends BaseEntity> List<T> ById(List<T> list, DataFetchingEnvironment environment)
 	{	
 		String id = environment.getArgument("id");
+		if(id == null)
+			return list;
 		List<T> returnList = list.stream().filter(t -> t.id.equals(id)).collect(Collectors.toList());
 		return returnList;
 	}

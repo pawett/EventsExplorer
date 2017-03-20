@@ -54,8 +54,12 @@ public class Queries {
 		 .field(newFieldDefinition()
 				 .name("times")
 				 .argument(Arguments.Id())
+				 .argument(Arguments.From())
+				 .argument(Arguments.To())
 				 .type(new GraphQLList(time))
-				 .dataFetcher(Environment -> FiltersHelper.ById(timesDA.GetAll(), Environment))
+				 .dataFetcher(environment -> (timesDA.Get(environment.getArgument("id"), 
+														  environment.getArgument("from"),
+														  environment.getArgument("to"))))
 				 .build())
 		 .build();
 	}

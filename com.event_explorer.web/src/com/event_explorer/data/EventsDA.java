@@ -104,13 +104,13 @@ public class EventsDA extends BaseDA<Event> {
 		return BaseQuery(idTime, "When", NavigationDirection.INBOUND);
 	}
 	
-	public Time HappenedIn(String idEntity)
+	/*public Time HappenedIn(String idEntity)
 	{
 		List<Time> times = new TimesDA(Time.class).GetTimesFromEvent(idEntity);
 		if(times != null && !times.isEmpty())
 			return times.get(0);
 		
 		return null;
-	}
+	}*/
 
 }

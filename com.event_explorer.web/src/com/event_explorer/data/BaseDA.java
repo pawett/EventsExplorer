@@ -32,16 +32,22 @@ public class BaseDA<T extends BaseEntity> {
 			return "FOR doc IN "+getCollectionName()+" RETURN doc";
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append(" FILTER ");
+		sb.append("FOR doc IN ");
+		sb.append(getCollectionName());
+		sb.append(" FILTER 1 == 1");
 		for(String key : filters.keySet())
 		{
-			sb.append("doc."+key+" == '"+filters.get(key)+ "' &");
+			String comparator = "==";
+			if(key == "from")
+				comparator =">=";
+			if(key == "to")
+				comparator="<=";
+			sb.append(" AND doc."+key+" "+comparator+" '"+filters.get(key)+ "' ");
 		}
-		String filter = sb.toString();
-		if(filter.charAt(filter.length()-1) == '&')//remove the last &
-			filter = filter.substring(0,filter.length()-1);
+		sb.append(" RETURN doc");
+		String query = sb.toString();
 
-		return "FOR doc IN "+getCollectionName()+filter+" RETURN doc";
+		return query;
 	}
 	
 	public BaseDA(Class<T> type)
@@ -118,6 +124,12 @@ public class BaseDA<T extends BaseEntity> {
 	public List<T> GetAll()
 	{
 		List<T> entities = QueryExecutor(null);
+		return entities;
+	}
+	
+	public List<T> GetFiltered(Map<String, String> filters)
+	{
+		List<T> entities = QueryExecutor(filters);
 		return entities;
 	}
 	

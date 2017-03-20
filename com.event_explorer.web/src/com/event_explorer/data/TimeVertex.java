@@ -12,8 +12,8 @@ public class TimeVertex extends BaseVertex<Time> {
 	public String to;
 	public TimeVertex(Time entity) {
 		super(entity);
-		this.from = Objects.toString(entity.from.getTime(), null);
-		this.to = Objects.toString(entity.to.getTime(), null);
+		this.from = Objects.toString(entity.from.toEpochMilli());
+		this.to = Objects.toString(entity.to.toEpochMilli());
 	}
 
 }

@@ -2,9 +2,14 @@ package com.event_explorer.data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
@@ -107,19 +112,17 @@ public class DBConnection {
 		db.collection("Events").insertDocument(CreateEvent("study"));
 		
 		
-		db.collection("Times").insertDocument(CreateTime("2016", "01/01/2016", "31/12/2016"));
-		db.collection("Times").insertDocument(CreateTime("2015", "01/01/2015", "31/12/2015"));
+		db.collection("Times").insertDocument(CreateTime("2016", "2016-01-01T12:00:00+01:00", "2016-12-31T12:00:00+01:00"));
+		db.collection("Times").insertDocument(CreateTime("2015", "2015-01-01T12:00:00+01:00", "2015-12-31T12:00:00+01:00"));
 
 	}
 	
 	private static TimeVertex CreateTime(String name, String from, String to) throws ParseException
 	{
 		Time time = new Time();
-		time.id = name;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = sdf.parse(from);
-		time.from = sdf.parse(from);
-		time.to = sdf.parse(to);
+		time.id = name;		
+		time.from = Time.FromISOString(from);
+		time.to = Time.FromISOString(to);
 		TimeVertex entityVertex = new TimeVertex(time);
 		return entityVertex;
 	}
