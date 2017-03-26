@@ -39,7 +39,7 @@ public class Main implements SparkApplication {
         });
 
         before((request,response) -> {
-            response.header("Access-Control-Allow-Origin", "http://localhost:41561");
+            response.header("Access-Control-Allow-Origin", "http://localhost:40395");
             response.header("Access-Control-Allow-Credentials", "true");
         });
         
@@ -51,7 +51,7 @@ public class Main implements SparkApplication {
 			(Map<String, Object>) payload.get("variables");
 			if(variables == null)
 				variables = new HashMap<String,Object>();
-			GraphQL graphql = new GraphQL(Schema.getSchema());
+			GraphQL graphql = new GraphQL(Schema.getEventExplorerSchema());
 			ExecutionResult executionResult = 
 			graphql.execute(payload.get("query").toString(), null, null, variables);
 			Map<String, Object> result = new LinkedHashMap<>();

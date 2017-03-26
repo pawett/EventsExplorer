@@ -21,7 +21,7 @@ import graphql.GraphQL;
 		  public Object executeOperation(Map body) {
 	        String query = (String) body.get("query");
 	        Map<String, Object> variables = (Map<String, Object>) body.get("variables");
-	        GraphQL graphql = new GraphQL(Schema.getSchema());
+	        GraphQL graphql = new GraphQL(Schema.getEventExplorerSchema());
 			ExecutionResult executionResult = graphql.execute(query, (Object) null, variables);
 	        Map<String, Object> result = new LinkedHashMap<>();
 	        if (executionResult.getErrors().size() > 0) {
@@ -45,7 +45,7 @@ import graphql.GraphQL;
 	           // log.error("Errors: {}", executionResult.getErrors());
 	        }
 	        result.put("data", executionResult.getData());*/
-			 GraphQL graphql = new GraphQL(Schema.getSchema());
+			 GraphQL graphql = new GraphQL(Schema.getEventExplorerSchema());
 			
 	        return body;
 	    }

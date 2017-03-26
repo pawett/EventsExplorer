@@ -20,10 +20,10 @@ import static graphql.schema.GraphQLNonNull.*;
 public class Queries {
 
 	
-	public static GraphQLObjectType getEntitiesQuery()
+	public static GraphQLObjectType getEventExplorerQuery()
 	{
 		GraphQLObjectType entity = EntitySchema.GetEntitySchema();
-		GraphQLObjectType event = EventSchema.GetEventSchema();
+		GraphQLObjectType event = EventExplorerSchema.GetSchema();
 		GraphQLObjectType time = TimeSchema.GetTimeSchema();
 		
 		EntitiesDA entitiesDA = new EntitiesDA(Entity.class);
